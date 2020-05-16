@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        div {
+            margin: 1rem;
+        }
+
+        .warp {
+            margin: auto;
+            width: 500px;
+        }
+
+        .item {
+            width: 100%;
+        }
+
+        .buybtn {
+            margin: auto;
+            width: 100px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let won = response[1]["rate"];
+                    $("#wD").append("달러-원 환율 : "+won);
+                },
+            });
+        });
+
+        function call() {
+            let name = $("#name").val();
+            let numb = $("#numb").val();
+            let adre = $("#adre").val();
+            let tele = $("#tele").val();
+
+            if (!name) {
+                alert('이름을 입력해주세요');
+            } else if (!numb) {
+                alert('수량를 입력해주세요');
+            } else if (!adre) {
+                alert('주소를 입력해주세요');
+            } else if (!tele) {
+                alert('전화번호를 입력해주세요');
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="warp">
+        <div class="item">
+            <img width="100%"
+                src="data:image/jpeg;base64,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">
+        </div>
+        <div>
+            <h2>상품명 : 꽃병
+                <span style="font-size: small;">가격 : 100,000원 / 개</span>
+            </h2>
+
+        </div>
+
+        <p>이 상품에 대한 설명 이 상품에 대한 설명 이 상품에 대한 설명 이 상품에 대한 설명 이 상품에 대한 설명</p>
+        <p id="wD" style="color: royalblue;"></p>
+
+        <div>
+            <h2>주문하기</h2>
+            <div class="input-group">
+                <span class="input-group-addon">주문자 성함</span>
+                <input type="text" class="form-control" id="name" placeholder="주문자 성함을 입력해주세요"
+                    aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">수 량</span>
+                <input type="number" class="form-control" id="numb" placeholder="수량을 선택하세요"
+                    aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">주 소</span>
+                <input type="text" class="form-control" id="adre" placeholder="주소를 입력해주세요"
+                    aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">전화번호</span>
+                <input type="tel" class="form-control" id="tele" placeholder="전화번호를 입력해주세요"
+                    aria-describedby="sizing-addon2">
+            </div>
+
+            <div class="buybtn">
+                <button type="button" class="btn btn-primary" style="width: 200px;" onclick="call()">주문하기</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
