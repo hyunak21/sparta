@@ -1,242 +1,277 @@
-<!DOCTYPE html>
-<html lang="en">
-  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-        
-    <meta charset="UTF-8"  />
-        
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"  />
-        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Bootstrap CSS -->
-        
+
     <!-- 합쳐지고 최소화된 최신 CSS -->
-        
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-        
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+    />
+
     <!-- 부가적인 테마 -->
-        
-    <link       rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"      />
-        
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"
+    />
+
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-        
-    <script src="https: //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        
+
+    <script src="https: //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
     <!-- JS -->
-        
-    <script src="https: //ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        
-    <script       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-              integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-              crossorigin="anonymous"     ></script>
-        
-    <script       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-              integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-              crossorigin="anonymous"     ></script>
-        
+
+    <script src="https: //ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- 구글폰트 -->
-        
-    <link       href="https://fonts.googleapis.com/css?family=Stylish&display=swap"       rel="stylesheet"      />
-        
-    <link       href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"       rel="stylesheet"      />
-        <style>
-        div {
-            margin: 1rem;
-        }
 
-        .warp {
-            margin: auto;
-            width: 500px;
-        }
+    <link
+      href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
+      rel="stylesheet"
+    />
 
-        .item {
-            width: 100%;
-        }
+    <link
+      href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      div {
+        margin: 1rem;
+      }
 
-        .buybtn {
-            margin: auto;
-            width: 100px;
-        }
+      .warp {
+        margin: auto;
+        width: 500px;
+      }
+
+      .item {
+        width: 100%;
+      }
+
+      .buybtn {
+        margin: auto;
+        width: 100px;
+      }
     </style>
 
-        
     <script>
-        $(document).ready(function () {
-            exchangeRate();
-            listing();
+      $(document).ready(function () {
+        exchangeRate();
+        listing();
+      });
+      // 환율
+      function exchangeRate() {
+        $.ajax({
+          type: "GET",
+          url: "https://api.manana.kr/exchange/rate.json",
+          data: {},
+          success: function (response) {
+            let won = response[1]["rate"];
+            $("#wD").append("달러-원 환율 : " + won);
+          },
         });
-        // 환율
-        function exchangeRate() {
-            $.ajax({
-                type: "GET",
-                url: "https://api.manana.kr/exchange/rate.json",
-                data: {},
-                success: function (response) {
-                    let won = response[1]["rate"];
-                    $("#wD").append("달러-원 환율 : " + won);
-                },
-            });
+      }
+      // input null check
+      function nullchk() {
+        let name = $("#name").val();
+        let numb = $("#numb").val();
+        let adre = $("#adre").val();
+        let tele = $("#tele").val();
+        if (!name) {
+          alert("이름을 입력해주세요");
+          $("#name").focus();
+          return false;
+        } else if (!numb) {
+          alert("수량를 입력해주세요");
+          $("#numb").focus();
+          return false;
+        } else if (!adre) {
+          alert("주소를 입력해주세요");
+          $("#adre").focus();
+          return false;
+        } else if (!tele) {
+          alert("전화번호를 입력해주세요");
+          $("#tele").focus();
+          return false;
         }
-        // input null check
-        function nullchk() {
-            let name = $("#name").val();
-            let numb = $("#numb").val();
-            let adre = $("#adre").val();
-            let tele = $("#tele").val();
-            if (!name) {
-                alert("이름을 입력해주세요");
-                $("#name").focus();
-                return false;
-            } else if (!numb) {
-                alert("수량를 입력해주세요");
-                $("#numb").focus();
-                return false;
-            } else if (!adre) {
-                alert("주소를 입력해주세요");
-                $("#adre").focus();
-                return false;
-            } else if (!tele) {
-                alert("전화번호를 입력해주세요");
-                $("#tele").focus();
-                return false;
-            }
-            return true;
+        return true;
+      }
+      function submitPost() {
+        if (!nullchk()) {
+          console.log("주문란 확인 부탁합니다.");
+        } else {
+          posting();
+          listing();
         }
-        function submitPost() {
-            if (!nullchk()) {
-                console.log("주문란 확인 부탁합니다.");
+      }
+      function posting() {
+        let name = $("#name").val();
+        let numb = $("#numb").val();
+        let adre = $("#adre").val();
+        let tele = $("#tele").val();
+        $.ajax({
+          type: "POST",
+          url: "/order",
+          data: {
+            name,
+            numb,
+            adre,
+            tele,
+          },
+          success: function (response) {
+            if (response["result"] == "success") {
+              alert("주문 성공!");
+              window.location.reload();
             } else {
-                posting();
-                listing();
+              alert("서버 오류!");
             }
-
-        }
-        function posting() {
-            let name = $("#name").val();
-            let numb = $("#numb").val();
-            let adre = $("#adre").val();
-            let tele = $("#tele").val();
-            $.ajax({
-                type: "POST",
-                url: "/order",
-                data: {
-                    name,
-                    numb,
-                    adre,
-                    tele,
-                },
-                success: function (response) {
-                    if (response["result"] == "success") {
-                        alert("주문 성공!");
-                        window.location.reload();
-                    } else {
-                        alert("서버 오류!");
-                    }
-                },
-            });
-        }
-        function make_table(name, numb, adre, tele) {
-            let temp_html = `<tr>
+          },
+        });
+      }
+      function make_table(name, numb, adre, tele) {
+        let temp_html = `<tr>
                           <td>${name}</td>
                           <td>${numb}</td>
                           <td>${adre}</td>
                           <td>${tele}</td>
                         </tr>`;
-            $("#orders-box").append(temp_html);
-        }
-        //table list call
-        function listing() {
-            $("#orders-box").empty();
-            $.ajax({
-                type: "GET",
-                url: "/order",
-                data: {},
-                success: function (response) {
-                    if (response["result"] == "success") {
-                        let orders = response["orders"];
-                        for (let i = 0; i < orders.length; i++) {
-                            make_table(
-                                orders[i]["name"],
-                                orders[i]["numb"],
-                                orders[i]["adre"],
-                                orders[i]["tele"]
-                            );
-                        }
-                    } else {
-                        nullList();
-                    }
-                },
-            });
-        }
-        function nullList() {
-            let temp_html =
-                "<tr><td>불러올 아이템이 없거나 데이터를 엑세스 할수 없습니다.</td></tr>";
-            $("#orders-box").append(temp_html);
-        }
+        $("#orders-box").append(temp_html);
+      }
+      //table list call
+      function listing() {
+        $("#orders-box").empty();
+        $.ajax({
+          type: "GET",
+          url: "/order",
+          data: {},
+          success: function (response) {
+            if (response["result"] == "success") {
+              let orders = response["orders"];
+              for (let i = 0; i < orders.length; i++) {
+                make_table(
+                  orders[i]["name"],
+                  orders[i]["numb"],
+                  orders[i]["adre"],
+                  orders[i]["tele"]
+                );
+              }
+            } else {
+              nullList();
+            }
+          },
+        });
+      }
+      function nullList() {
+        let temp_html =
+          "<tr><td>불러올 아이템이 없거나 데이터를 엑세스 할수 없습니다.</td></tr>";
+        $("#orders-box").append(temp_html);
+      }
     </script>
-      </head>
-  
+  </head>
 
-<body>
-        <div class="warp">
-              <div class="item">
-                    <img width="100%" src="{{ url_for('static', filename='download.jpg') }}"/>
-                  </div>
-              <div>
-                    <h2>
-                          상품명 : 꽃병
-                          <span style="font-size: small;">가격 : 100,000원 / 개</span>
-                        </h2>
-                  </div>
-              <p>
-                    이 상품에 대한 설명 이 상품에 대한 설명 이 상품에 대한 설명 이 상품에
-                    대한 설명 이 상품에 대한 설명
-                  </p>
-              <p id="wD" style="color: royalblue;"></p>
-              <div>
-                    <h2>주문하기</h2>
-                    <div class="input-group">
-                          <span class="input-group-addon">주문자 성함</span>
-                          <input             type="text"             class="form-control"             id="name"
-                                placeholder="주문자 성함을 입력해주세요"             aria-describedby="sizing-addon2"            />
-                        </div>
-                    <div class="input-group">
-                          <span class="input-group-addon">수 량</span>
-                          <input             type="number"             class="form-control"             id="numb"
-                                placeholder="수량을 선택하세요"             aria-describedby="sizing-addon2"            />
-                        </div>
-                    <div class="input-group">
-                          <span class="input-group-addon">주 소</span>
-                          <input             type="text"             class="form-control"             id="adre"
-                                placeholder="주소를 입력해주세요"             aria-describedby="sizing-addon2"            />
-                        </div>
-                    <div class="input-group">
-                          <span class="input-group-addon">전화번호</span>
-                          <input             type="tel"             class="form-control"             id="tele"
-                                placeholder="전화번호를 입력해주세요"             aria-describedby="sizing-addon2"            />
-                        </div>
-                    <div class="buybtn">
-                          <button             type="button"             class="btn btn-primary"
-                                style="width: 200px;"             onclick="submitPost()"           >
-                                주문하기
-                              </button>
-                        </div>
-                  </div>
-            </div>
-        <div class="orders">
-              <table class="table">
-                    <thead>
-                          <tr>
-                                <th scope="col">이름</th>
-                                <th scope="col">수량</th>
-                                <th scope="col">주소</th>
-                                <th scope="col">전화번호</th>
-                              </tr>
-                        </thead>
-                    <tbody id="orders-box"></tbody>
-                  </table>
-            </div>
-      </body>
-
+  <body>
+    <div class="warp">
+      <div class="item">
+        <img
+          width="100%"
+          src="{{ url_for('static', filename='download.jpg') }}"
+        />
+      </div>
+      <div>
+        <h2>
+          상품명 : 꽃병
+          <span style="font-size: small;">가격 : 100,000원 / 개</span>
+        </h2>
+      </div>
+      <p>
+        이 상품에 대한 설명 이 상품에 대한 설명 이 상품에 대한 설명 이 상품에
+                대한 설명 이 상품에 대한 설명
+      </p>
+      <p id="wD" style="color: royalblue;"></p>
+      <div>
+        <h2>주문하기</h2>
+        <div class="input-group">
+          <span class="input-group-addon">주문자 성함</span>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="주문자 성함을 입력해주세요"
+            aria-describedby="sizing-addon2"
+          />
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">수 량</span>
+          <input
+            type="number"
+            class="form-control"
+            id="numb"
+            placeholder="수량을 선택하세요"
+            aria-describedby="sizing-addon2"
+          />
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">주 소</span>
+          <input
+            type="text"
+            class="form-control"
+            id="adre"
+            placeholder="주소를 입력해주세요"
+            aria-describedby="sizing-addon2"
+          />
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">전화번호</span>
+          <input
+            type="tel"
+            class="form-control"
+            id="tele"
+            placeholder="전화번호를 입력해주세요"
+            aria-describedby="sizing-addon2"
+          />
+        </div>
+        <div class="buybtn">
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="width: 200px;"
+            onclick="submitPost()"
+          >
+            주문하기
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="orders">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+          </tr>
+        </thead>
+        <tbody id="orders-box"></tbody>
+      </table>
+    </div>
+  </body>
 </html>
